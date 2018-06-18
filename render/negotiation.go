@@ -6,13 +6,13 @@ import (
 	"github.com/dimiro1/toolkit-defaults/internal/contenttype"
 )
 
-type ContentNegotiationRenderer struct {
+type ContentNegotiation struct {
 	JSONRenderer JSON
 	XMLRenderer  XML
 	TextRenderer Text
 }
 
-func (c ContentNegotiationRenderer) Render(w http.ResponseWriter, r *http.Request, status int, i interface{}) error {
+func (c ContentNegotiation) Render(w http.ResponseWriter, r *http.Request, status int, i interface{}) error {
 	switch contenttype.Detect(r) {
 	case "xml":
 		return c.XMLRenderer.Render(w, r, status, i)
@@ -23,6 +23,6 @@ func (c ContentNegotiationRenderer) Render(w http.ResponseWriter, r *http.Reques
 	}
 }
 
-func NewContentNegotiationRenderer() ContentNegotiationRenderer {
-	return ContentNegotiationRenderer{}
+func NewContentNegotiation() ContentNegotiation {
+	return ContentNegotiation{}
 }
